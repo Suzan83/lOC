@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Location</title>
+</head>
+<body>
+    <h2>Location Recorder</h2>
+    <p>This page will record your location. Please allow location access.</p>
+
+    <script>
+        // Google Apps Script URL
+        const googleAppsScriptURL = "https://script.google.com/macros/s/AKfycbwuloMrTCGdqT9zfjj_05Nd-_XevtcDBNVqHbJd5eEfVp84YTbRYRYfUyBPmUrboqZbCg/exec";
+
+        // Fetch the user's location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Redirect to the Google Apps Script URL with location data
+                    window.location.href = `${googleAppsScriptURL}?latitude=${latitude}&longitude=${longitude}`;
+                },
+                (error) => {
+                    // Handle location access errors
+                    alert("Error: Unable to fetch location. Please enable location services.");
+                }
+            );
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    </script>
+</body>
+</html>
